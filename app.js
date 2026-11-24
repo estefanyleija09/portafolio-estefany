@@ -1,0 +1,5 @@
+const track=document.getElementById('track'), slides=[...track.children], dots=document.getElementById('dots'), counter=document.getElementById('counter'); let current=0;
+slides.forEach((_,i)=>{const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',`Ir al proyecto ${i+1}`);d.onclick=()=>go(i);dots.appendChild(d)});
+function go(index){current=(index+slides.length)%slides.length;track.style.transform=`translateX(-${current*100}%)`;[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));counter.textContent=`${String(current+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`}
+document.getElementById('prev').onclick=()=>go(current-1); document.getElementById('next').onclick=()=>go(current+1); go(0);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(current-1);if(e.key==='ArrowRight')go(current+1)});
